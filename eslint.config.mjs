@@ -7,8 +7,17 @@ import configPrettier from "eslint-config-prettier";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
-  { languageOptions: { globals: globals.browser } },
+  {
+    files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+  },
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+  },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
@@ -18,7 +27,16 @@ export default [
     },
     rules: {
       ...configPrettier.rules,
-      "prettier/prettier": "error",
+      "prettier/prettier": "warn",
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-unused-vars": "warn",
+      "key-spacing": [
+        "warn",
+        {
+          beforeColon: false,
+          afterColon: true,
+        },
+      ],
     },
   },
 ];

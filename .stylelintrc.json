@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-standard-less",
+    "stylelint-prettier/recommended"
+  ],
+  "plugins": [
+    "stylelint-less"
+  ],
+  "rules": {
+    "block-no-empty": true,
+    "function-calc-no-unspaced-operator": true,
+    "color-no-invalid-hex": true
+  }
+}
