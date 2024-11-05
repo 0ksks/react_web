@@ -30,6 +30,7 @@ export default [
       "prettier/prettier": "warn",
       "@typescript-eslint/no-require-imports": "off",
       "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-explicit-any": "off",
       "linebreak-style": ["error", "unix"],
       "key-spacing": [
         "warn",
