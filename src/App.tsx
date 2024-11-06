@@ -1,14 +1,11 @@
 import React, { Suspense } from "react";
-import { Link, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import routes from "@/router";
-
+import AppHeader from "@/components/app/header";
 function App() {
   return (
     <div className="App">
-      <div className="nav">
-        <Link to={"/home"}>home</Link>
-        <Link to={"/login"}>login</Link>
-      </div>
+      <AppHeader />
       <Suspense fallback={""}>
         <div className="main">{useRoutes(routes)}</div>
       </Suspense>

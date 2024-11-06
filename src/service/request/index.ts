@@ -5,14 +5,14 @@ import axios, {
   AxiosError,
   AxiosResponse,
 } from "axios";
-import { BASE_URL, TIME_OUT } from "../config";
+import { TIME_OUT } from "../config";
 import IResponse from "./type";
 class HttpRequest {
   service: AxiosInstance;
 
   constructor() {
     this.service = axios.create({
-      baseURL: BASE_URL,
+      baseURL: process.env.REACT_APP_BASE_URL,
       timeout: TIME_OUT,
     });
 
