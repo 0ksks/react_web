@@ -8,7 +8,7 @@ const AuthPhone = lazy(() => import("@/views/auth-phone"));
 const routes: RouteObject[] = [
   {
     path: "/",
-    element: <Navigate to="/auth_phone" />,
+    element: <Navigate to="/home" />,
   },
   {
     path: "/home",

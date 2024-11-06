@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import notificationReducer from "./modules/notification";
 
 const store = configureStore({
-  reducer: {},
+  reducer: { notification: notificationReducer },
 });
 
 type GetStateFnType = typeof store.getState;

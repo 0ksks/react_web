@@ -32,7 +32,6 @@ const AuthPhoneForm = () => {
         !value.match(/^\d+$/) ? "Phone must be a number" : null,
     },
   ];
-
   const handleFormSubmit = async (data: Record<string, string>) => {
     try {
       const response = await authPhone(data);
