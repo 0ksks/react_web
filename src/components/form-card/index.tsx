@@ -9,12 +9,21 @@ import {
   FormHelperText,
   InputLabel,
   FormControl,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
 } from "@mui/material";
 
-interface Field {
+export interface Option {
+  value: string;
+  label: string;
+}
+
+export interface Field {
   name: string;
   label: string;
   validate?: (value: string) => string | null; // Validation function returning error message or null
+  options?: Option[]; // Optional options array for select fields
 }
 
 interface IProps {
@@ -29,9 +38,13 @@ const FormCard: FC<IProps> = ({ title = "Form", fields, onSubmit }) => {
   );
   const [errors, setErrors] = useState<Record<string, string | null>>({});
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement> | SelectChangeEvent<string>,
+  ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (name) {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = (event: FormEvent) => {
@@ -80,14 +93,33 @@ const FormCard: FC<IProps> = ({ title = "Form", fields, onSubmit }) => {
             <InputLabel htmlFor={`${field.name}-input`}>
               {field.label}
             </InputLabel>
-            <OutlinedInput
-              id={`${field.name}-input`}
-              label={field.label}
-              name={field.name}
-              value={formData[field.name]}
-              onChange={handleChange}
-              aria-describedby={`${field.name}-error-text`}
-            />
+            {field.options ? (
+              <Select
+                id={`${field.name}-input`}
+                label={field.label}
+                name={field.name}
+                value={formData[field.name]}
+                onChange={(e) => handleChange(e as SelectChangeEvent<string>)}
+                aria-describedby={`${field.name}-error-text`}
+              >
+                {field.options.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            ) : (
+              <OutlinedInput
+                id={`${field.name}-input`}
+                label={field.label}
+                name={field.name}
+                value={formData[field.name]}
+                onChange={(e) =>
+                  handleChange(e as ChangeEvent<HTMLInputElement>)
+                }
+                aria-describedby={`${field.name}-error-text`}
+              />
+            )}
             {errors[field.name] && (
               <FormHelperText id={`${field.name}-error-text`}>
                 {errors[field.name]}

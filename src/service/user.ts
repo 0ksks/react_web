@@ -1,3 +1,4 @@
+import { Option } from "@/components/form-card";
 import HttpRequest from "./request";
 
 class UserRequest extends HttpRequest {
@@ -8,17 +9,16 @@ class UserRequest extends HttpRequest {
 }
 const userRequest = new UserRequest();
 
-export const getAuthTypes = () => {
-  return userRequest
-    .get({ url: "/auth_type" })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+export const getAuthTypes = async () => {
+  try {
+    const response = await userRequest.get<Option[]>({ url: "/auth_type" });
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const authPhone = (payload: any) => {
-  return userRequest.post({ url: "/auth_phone", data: payload });
+export const authPhone = async (payload: any) => {
+  return await userRequest.post({ url: "/auth_phone", data: payload });
 };
