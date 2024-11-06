@@ -6,8 +6,7 @@ import { shallowEqual } from "react-redux";
 import { Snackbar } from "@mui/material";
 function App() {
   const { notification } = useAppSelector((state) => state, shallowEqual);
-  console.log(notification.open);
-  console.log(notification);
+  console.log("log in app", notification);
   return (
     <div className="App">
       <Snackbar

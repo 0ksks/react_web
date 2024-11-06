@@ -11,7 +11,6 @@ const Home = () => {
     setOpen(!open);
     setSnackbarProps({ open: !open, message: "props" });
     dispatch(notify(snackbarProps));
-    console.log("snackbar props:", snackbarProps);
   };
 
   return (

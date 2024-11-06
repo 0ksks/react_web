@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 const notificationSlice = createSlice({
   name: "notification",
   initialState: {
@@ -8,11 +9,11 @@ const notificationSlice = createSlice({
   reducers: {
     notify(state, { payload }) {
       if (payload) {
+        state.open = payload.open; // TODO test
+        state.message = payload.message; // test
         state = payload;
-        // state.open = payload.open;
-        // state.message = payload.message;
       }
-      console.log(payload);
+      console.log("log payload after valued", payload);
     },
   },
 });
