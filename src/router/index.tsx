@@ -3,11 +3,12 @@ import { Navigate, RouteObject } from "react-router-dom";
 
 const Home = lazy(() => import("@/views/home"));
 const Login = lazy(() => import("@/views/login"));
+const AuthPhone = lazy(() => import("@/views/auth-phone"));
 
 const routes: RouteObject[] = [
   {
     path: "/",
-    element: <Navigate to="/home" />,
+    element: <Navigate to="/auth_phone" />,
   },
   {
     path: "/home",
@@ -16,6 +17,10 @@ const routes: RouteObject[] = [
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/auth_phone",
+    element: <AuthPhone />,
   },
 ];
 

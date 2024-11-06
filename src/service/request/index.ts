@@ -27,15 +27,13 @@ class HttpRequest {
         console.log("requestError: ", error);
         return Promise.reject(error);
       },
-      // {
-      //   synchronous: false,
-      //   runWhen: (config: InternalAxiosRequestConfig) => {
-      //     // do something
-
-      //     // if return true, axios will execution interceptor method
-      //     return true;
-      //   },
-      // },
+      {
+        synchronous: false,
+        runWhen: (config: InternalAxiosRequestConfig) => {
+          // if return true, axios will execution interceptor method
+          return true;
+        },
+      },
     );
 
     this.service.interceptors.response.use(

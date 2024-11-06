@@ -9,7 +9,7 @@ class UserRequest extends HttpRequest {
 const userRequest = new UserRequest();
 
 export const getAuthTypes = () => {
-  userRequest
+  return userRequest
     .get({ url: "/auth_type" })
     .then((response) => {
       console.log(response);
@@ -17,4 +17,8 @@ export const getAuthTypes = () => {
     .catch((error) => {
       console.log(error);
     });
+};
+
+export const authPhone = (payload: any) => {
+  return userRequest.post({ url: "/auth_phone", data: payload });
 };
