@@ -102,5 +102,4 @@ class HttpRequest {
   }
 }
 
-const httpRequest = new HttpRequest();
-export default httpRequest;
+export default HttpRequest;

@@ -10,8 +10,10 @@ interface IProps {
 const AppHeader: FC<IProps> = () => {
   return (
     <HeaderWrapper>
-      <Link to={"/home"}>home</Link>
-      <Link to={"/login"}>login</Link>
+      <div className="content">
+        <Link to={"/home"}>home</Link>
+        <Link to={"/login"}>login</Link>
+      </div>
     </HeaderWrapper>
   );
 };

@@ -1,3 +1,2 @@
-import httpRequest from "./request";
-
-export default httpRequest;
+import { getAuthTypes } from "./user";
+export default getAuthTypes;
