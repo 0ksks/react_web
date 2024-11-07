@@ -27,7 +27,7 @@ function App() {
       >
         <Alert
           onClose={handleClose}
-          severity={notification.alertProps?.severity || "info"}
+          severity={notification.alertprops?.severity || "info"}
         >
           {notification.message}
         </Alert>

@@ -4,11 +4,12 @@ import { Navigate, RouteObject } from "react-router-dom";
 const Home = lazy(() => import("@/views/home"));
 const Login = lazy(() => import("@/views/login"));
 const AuthPhone = lazy(() => import("@/views/auth-phone"));
+const Register = lazy(() => import("@/views/register"));
 
 const routes: RouteObject[] = [
   {
     path: "/",
-    element: <Navigate to="/auth_phone" />,
+    element: <Navigate to="/register" />,
   },
   {
     path: "/home",
@@ -17,6 +18,10 @@ const routes: RouteObject[] = [
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
   {
     path: "/auth_phone",

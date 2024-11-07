@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { SnackbarProps, AlertProps } from "@mui/material";
 
-interface NotificationState extends SnackbarProps {
-  alertProps?: AlertProps;
+export interface NotificationState extends SnackbarProps {
+  alertprops?: AlertProps;
   message?: string;
 }
 
 const initialState: NotificationState = {
   open: false,
   message: "",
-  alertProps: { severity: "info" },
+  alertprops: { severity: "info" },
 };
 
 const notificationSlice = createSlice({

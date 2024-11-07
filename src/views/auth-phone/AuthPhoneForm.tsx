@@ -25,7 +25,7 @@ const AuthPhoneForm = () => {
 
   // Define fields with the options from state
   const fields: Field[] = [
-    { name: "school", label: "School", options: schoolOptions },
+    { name: "authType", label: "School", options: schoolOptions },
     {
       name: "phone",
       label: "Phone",
@@ -34,6 +34,7 @@ const AuthPhoneForm = () => {
     },
   ];
   const handleFormSubmit = async (data: Record<string, string>) => {
+    console.log(data);
     try {
       const response = await requests.post({
         url: AUTH_PHONE,
