@@ -31,10 +31,7 @@ const useHttpRequest = () => {
 
   service.interceptors.response.use(
     (response: AxiosResponse<IResponse>): AxiosResponse["data"] => {
-      const { data } = response;
-      const { code } = data;
-
-      if (code) {
+      if (response.data.code) {
         return response;
       } else {
         return Promise.reject("Error! code missing!");

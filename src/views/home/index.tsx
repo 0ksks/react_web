@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@/store";
-import { notify } from "@/store/modules/notification";
+import { changeSnackbarPropsAction } from "@/store/modules/notification";
 import { Button, SnackbarProps } from "@mui/material";
 import React, { useState } from "react";
 
@@ -13,7 +13,7 @@ const Home = () => {
       open: !open,
       children: <div>hello this is children</div>,
     });
-    dispatch(notify(snackbarProps));
+    dispatch(changeSnackbarPropsAction(snackbarProps));
   };
 
   return (
