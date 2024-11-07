@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import type { FC, ReactNode } from "react";
 import Header from "@/components/app-header";
 import { Box } from "@mui/material";
+import LoginForm from "./LoginForm";
 
 interface IProps {
   children?: ReactNode;
@@ -39,7 +40,9 @@ const Login: FC<IProps> = () => {
           alignItems: "center",
           justifyContent: "center",
         }}
-      ></Box>
+      >
+        <LoginForm />
+      </Box>
     </Box>
   );
 };

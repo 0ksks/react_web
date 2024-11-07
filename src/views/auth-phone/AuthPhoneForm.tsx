@@ -35,7 +35,10 @@ const AuthPhoneForm = () => {
   ];
   const handleFormSubmit = async (data: Record<string, string>) => {
     try {
-      const response = await requests.post({ url: AUTH_PHONE, data });
+      const response = await requests.post({
+        url: AUTH_PHONE,
+        data,
+      });
       notify.auto(response);
     } catch (error) {
       console.error("Error submitting form:", error);
