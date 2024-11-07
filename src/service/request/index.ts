@@ -1,103 +1,85 @@
 import axios, {
   AxiosInstance,
-  InternalAxiosRequestConfig,
   AxiosRequestConfig,
   AxiosError,
   AxiosResponse,
 } from "axios";
 import { TIME_OUT } from "../config";
 import IResponse from "./type";
-class HttpRequest {
-  service: AxiosInstance;
+import { useState, useCallback } from "react";
 
-  constructor() {
-    this.service = axios.create({
+const useHttpRequest = () => {
+  const [service] = useState<AxiosInstance>(() =>
+    axios.create({
       baseURL: process.env.REACT_APP_BASE_URL,
       timeout: TIME_OUT,
-    });
+    }),
+  );
 
-    this.service.interceptors.request.use(
-      (config: InternalAxiosRequestConfig) => {
-        /**
-         * set your config
-         */
-        return config;
-      },
-      (error: AxiosError) => {
-        console.log("requestError: ", error);
-        return Promise.reject(error);
-      },
-      {
-        synchronous: false,
-        runWhen: (config: InternalAxiosRequestConfig) => {
-          // if return true, axios will execution interceptor method
-          return true;
-        },
-      },
-    );
+  service.interceptors.request.use(
+    (config) => {
+      /**
+       * Set your config
+       */
+      return config;
+    },
+    (error: AxiosError) => {
+      console.log("requestError: ", error);
+      return Promise.reject(error);
+    },
+  );
 
-    this.service.interceptors.response.use(
-      (response: AxiosResponse<IResponse>): AxiosResponse["data"] => {
-        const { data } = response;
-        const { code } = data;
-        if (code) {
-          if (code !== "00000") {
-            switch (code) {
-              case "C0001":
-                // the method to handle this code
-                break;
-              case "C0002":
-                // the method to handle this code
-                break;
-              default:
-                break;
-            }
-            return Promise.reject(data.msg);
-          } else {
-            return data;
-          }
-        } else {
-          return Promise.reject("Error! code missing!");
-        }
-      },
-      (error: any) => {
-        return Promise.reject(error);
-      },
-    );
-  }
+  service.interceptors.response.use(
+    (response: AxiosResponse<IResponse>): AxiosResponse["data"] => {
+      const { data } = response;
+      const { code } = data;
 
-  request<T = any>(config: AxiosRequestConfig): Promise<IResponse<T>> {
-    /**
-     * TODO: execute other methods according to config
-     */
-    return new Promise((resolve, reject) => {
-      try {
-        this.service
-          .request<IResponse<T>>(config)
-          .then((res: AxiosResponse["data"]) => {
-            resolve(res as IResponse<T>);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      } catch (err) {
-        return Promise.reject(err);
+      if (code) {
+        return response;
+      } else {
+        return Promise.reject("Error! code missing!");
       }
-    });
-  }
+    },
+    (error) => Promise.reject(error),
+  );
 
-  get<T = any>(config: AxiosRequestConfig): Promise<IResponse<T>> {
-    return this.request({ method: "GET", ...config });
-  }
-  post<T = any>(config: AxiosRequestConfig): Promise<IResponse<T>> {
-    return this.request({ method: "POST", ...config });
-  }
-  put<T = any>(config: AxiosRequestConfig): Promise<IResponse<T>> {
-    return this.request({ method: "PUT", ...config });
-  }
-  delete<T = any>(config: AxiosRequestConfig): Promise<IResponse<T>> {
-    return this.request({ method: "DELETE", ...config });
-  }
-}
+  const request = useCallback(
+    async <T = any>(config: AxiosRequestConfig): Promise<IResponse<T>> => {
+      const response = await service.request<IResponse<T>>(config);
+      return response.data;
+    },
+    [service],
+  );
 
-export default HttpRequest;
+  const get = useCallback(
+    <T = any>(config: AxiosRequestConfig): Promise<IResponse<T>> => {
+      return request({ method: "GET", ...config });
+    },
+    [request],
+  );
+
+  const post = useCallback(
+    <T = any>(config: AxiosRequestConfig): Promise<IResponse<T>> => {
+      return request({ method: "POST", ...config });
+    },
+    [request],
+  );
+
+  const put = useCallback(
+    <T = any>(config: AxiosRequestConfig): Promise<IResponse<T>> => {
+      return request({ method: "PUT", ...config });
+    },
+    [request],
+  );
+
+  const deleteRequest = useCallback(
+    <T = any>(config: AxiosRequestConfig): Promise<IResponse<T>> => {
+      return request({ method: "DELETE", ...config });
+    },
+    [request],
+  );
+
+  return { request, get, post, put, delete: deleteRequest };
+};
+
+export default useHttpRequest;

@@ -9,7 +9,10 @@ const Home = () => {
   const dispatch = useAppDispatch();
   const handleBoolClick = () => {
     setOpen(!open);
-    setSnackbarProps({ open: !open, message: "props" });
+    setSnackbarProps({
+      open: !open,
+      children: <div>hello this is children</div>,
+    });
     dispatch(notify(snackbarProps));
   };
 

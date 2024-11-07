@@ -1,19 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { SnackbarProps } from "@mui/material";
+const initialState: SnackbarProps = {};
 const notificationSlice = createSlice({
   name: "notification",
-  initialState: {
-    open: false,
-    message: "",
-  },
+  initialState: initialState,
   reducers: {
     notify(state, { payload }) {
       if (payload) {
-        state.open = payload.open; // TODO test
-        state.message = payload.message; // test
-        state = payload;
+        return payload;
       }
-      console.log("log payload after valued", payload);
     },
   },
 });

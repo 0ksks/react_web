@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import FormCard, { Field, Option } from "@/components/form-card";
-import { authPhone } from "@/service/user";
-import { getAuthTypes } from "@/service";
-
+import useRequests from "@/service/request";
 const AuthPhoneForm = () => {
   const [schoolOptions, setSchoolOptions] = useState<Option[]>([]);
-
+  const requests = useRequests();
   // Fetch options on mount
   useEffect(() => {
     const fetchSchoolName = async () => {
       try {
-        const response = await getAuthTypes();
+        const response = await requests.get<Option[]>({
+          url: "/user/auth_type",
+        });
         if (response?.data) {
           setSchoolOptions(response.data); // Update state with fetched options
         }
@@ -34,9 +34,7 @@ const AuthPhoneForm = () => {
   ];
   const handleFormSubmit = async (data: Record<string, string>) => {
     try {
-      const response = await authPhone(data);
-      console.log("Form submitted:", data);
-      console.log("Response:", response);
+      const response = await requests.post({ url: "/user/auth_phone", data });
     } catch (error) {
       console.error("Error submitting form:", error);
     }

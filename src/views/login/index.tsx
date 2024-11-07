@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 import type { FC, ReactNode } from "react";
-import Header from "./Header";
-import FormCard from "./form/AuthPhone";
+import Header from "@/components/app-header";
 import { Box } from "@mui/material";
 
 interface IProps {
@@ -40,9 +39,7 @@ const Login: FC<IProps> = () => {
           alignItems: "center",
           justifyContent: "center",
         }}
-      >
-        <FormCard />
-      </Box>
+      ></Box>
     </Box>
   );
 };
